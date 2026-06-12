@@ -1,4 +1,4 @@
-name: Sync ngo_trust Folders
+name: Auto commit
 
 on:
   push:
@@ -16,15 +16,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Copy ngo_trust to Version 2
-        run: |
-          rsync -av --delete ngo_trust/ ngo_trust_version_2/
+      - name: Sync to ngo_trust
+        run: rsync -av --delete ngo_trust_version_3/ ngo_trust/
 
-      - name: Copy ngo_trust to Version 3
-        run: |
-          rsync -av --delete ngo_trust/ ngo_trust_version_3/
+      - name: Sync to Version 2
+        run: rsync -av --delete ngo_trust_version_3/ ngo_trust_version_2/
 
-      - name: Commit and Push Changes
+      - name: Commit Changes
         run: |
           git config user.name "SuriyaPP"
           git config user.email "duraisuriya9310@gmail.com"
@@ -32,8 +30,8 @@ jobs:
           git add .
 
           if git diff --cached --quiet; then
-            echo "No changes to commit"
+            echo "No changes"
           else
-            git commit -m "Auto-sync ngo_trust to version folders"
-            git push
-          fi 
+            git commit -m "Auto sync from ngo_trust_version_3"
+            git push origin HEAD:main
+          fi
