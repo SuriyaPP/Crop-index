@@ -13,7 +13,7 @@ $csrf_hash = $this->security->get_csrf_hash();
             <!-- PAGE HEADER -->
             <div class="ad-page-header">
                 <div>
-                    <h2 class="ad-page-title">Asset Depreciation hfgsgkjsfgshfgASHfglfasfsfgs</h2>
+                    <h2 class="ad-page-title">Asset Depreciation</h2>
                     <p class="ad-page-subtitle">Track and manage asset depreciation by category</p>
                 </div>
             </div>
