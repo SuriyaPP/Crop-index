@@ -1,0 +1,39 @@
+name: Sync ngo_trust Folders
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Copy ngo_trust to Version 2
+        run: |
+          rsync -av --delete ngo_trust/ ngo_trust_version_2/
+
+      - name: Copy ngo_trust to Version 3
+        run: |
+          rsync -av --delete ngo_trust/ ngo_trust_version_3/
+
+      - name: Commit and Push Changes
+        run: |
+          git config user.name "SuriyaPP"
+          git config user.email "duraisuriya9310@gmail.com"
+
+          git add .
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-sync ngo_trust to version folders"
+            git push
+          fi 
